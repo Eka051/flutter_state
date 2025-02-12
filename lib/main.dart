@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_state/api_service.dart';
 import 'package:flutter_state/counter_controller.dart';
+import 'package:flutter_state/reactive_controller.dart';
 import 'package:get/get.dart';
 
 void main() {
@@ -19,8 +20,45 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: const NamePage(),
       debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class NamePage extends StatelessWidget {
+  const NamePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+
+    final ReactiveController reactiveController = Get.put(ReactiveController());
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('GetX Reactive State Management'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Obx(
+              () => Text('Name: ${reactiveController.name}',
+                  style: const TextStyle(fontSize: 24)),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: TextField(
+                onChanged: reactiveController.changeName,
+                decoration: InputDecoration(
+                  labelText: 'Enter Name',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
