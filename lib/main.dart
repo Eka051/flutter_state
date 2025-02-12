@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -48,6 +48,31 @@ class HomePage extends StatelessWidget {
               return const Text('Error in fetching data');
             }
           },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.to(const NextPage());
+        },
+        child: const Icon(Icons.arrow_forward),
+      ),
+    );
+  }
+}
+
+class NextPage extends StatelessWidget {
+  const NextPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Next Page'),
+      ),
+      body: const Center(
+        child: Text(
+          'Welcome to Next Page',
+          style: TextStyle(fontSize: 24),
         ),
       ),
     );
